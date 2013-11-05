@@ -8,46 +8,39 @@
  *
  */
 
-import java.net.InetAddress;
+import java.io.*;
+import java.net.*;
 import java.util.*;
+import java.lang.*;
 
-public class Server {
+public class Server extends Thread {
 
 	/**
 	 * @param args
 	 */
 	
-	String message = "";
+	public int TCPHandOffPort = 30500;
+	public int UDPHandOffPort = 30500;
+	
+	public void newTCPServer() throws Exception{
+		TCPServer newServer = new TCPServer(TCPHandOffPort);
+		TCPHandOffPort++;
+		newServer.start();
+	}
 	
 	public static void main(String[] args) throws Exception{
 		
 		System.out.println("Server Started at IP Address: "+InetAddress.getLocalHost()+".");
 		
-		//Randomly select a port between 3001 and 27050 as starting point
-		// I chose 27050 because that leaves plenty of ports above the last one to work with.
-		Random gen = new Random();
-		int handOffStartPort = 0;
-		
-		while(handOffStartPort > 3001 || handOffStartPort < 27050) {
-			handOffStartPort = gen.nextInt();
-		}
-		
 		//Start threading
 		Thread init = new Thread();
 		
-		
+		//Start Default TCP Server
 		TCPServer tcpServer = new TCPServer(60500);
 		
-		while(true) {
-			
-			
-		}
+		tcpServer.start();
+		
+		//UDP Server
 
 	}
-	
-	public boolean printMsg(String s) {
-		System.out.println(s);
-		return true;
-	}
-
 }

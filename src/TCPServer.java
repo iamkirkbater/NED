@@ -8,31 +8,50 @@
 import java.net.*;
 import java.io.*;
 
-public class TCPServer extends Thread {
+public class TCPServer extends Server {
 	
 	ServerSocket socket;
+	int portNumber;
 	
 	/*
 	 * TCP Server Constructor
 	 * @param - Takes a single int as a port number
 	 */
 	public TCPServer(int port) throws Exception {
+		this.portNumber = port;
 		this.socket = new ServerSocket(port);
+		System.out.println("New TCP/IP Server started, listening on port: "+portNumber);
+	}
+
+	public void run() {
+		try {
 		Socket cSocket = socket.accept();
 		
-		InputStreamReader inReader = new InputStreamReader(cSocket.getInputStream());
-		BufferedReader in = new BufferedReader(inReader);
+		BufferedReader in = new BufferedReader(new InputStreamReader(cSocket.getInputStream()));
 		
 		DataOutputStream output = new DataOutputStream(cSocket.getOutputStream());
 		
-		super.printMsg("Received: " + in.readLine());
-		output.writeBytes("Received your message.");
+		String inFromClient = in.readLine();
 		
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
+		while(true){
+			if(portNumber == 60500) {
+				if(inFromClient == "hello") {
+					System.out.println("Received incoming TCP/IP transmission from client.  Initiating port handoff.");
+					try {
+						super.newTCPServer();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			} else {
+				System.out.println("Received: " + in.readLine() + " from TCP/IP on port "+portNumber);
+				output.writeBytes("Successfully received your message.");
+			}
+		}
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
