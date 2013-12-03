@@ -17,7 +17,7 @@ public class TCPServer extends Thread {
 		
 		String clientMsg;
 		
-		System.out.println("A new TCP client has connected.  Thread ID: "+threadId);
+		System.out.println("A new TCP client has connected from TCP/IP address "+cs.getInetAddress().toString()+" on Port "+cs.getLocalPort()+" Thread ID: "+threadId);
 		
 		try {
 			BufferedReader in;
@@ -35,7 +35,7 @@ public class TCPServer extends Thread {
 								
 				//Check to see if the client is letting you know it quit.
 				if(clientMsg.equalsIgnoreCase("quit")) {
-					System.out.println("TCP Client Disconnected.  Thread ID: "+threadId);
+					System.out.println("TCP Client Disconnected from TCP/IP address "+cs.getInetAddress().toString()+".  Thread ID: "+threadId);
 					break;
 				} else {
 					//If the client didn't quit, then receive the message and let the client know you

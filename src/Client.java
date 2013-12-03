@@ -12,7 +12,7 @@ public class Client {
 		Scanner scan = new Scanner(System.in);
 		
 		// Get server address from user.
-		System.out.print("Enter the Server IP address: ");		
+		System.out.print("Enter the Server IP address or Hostname: ");		
 		String server = scan.nextLine();
 		
 		String type;	

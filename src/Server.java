@@ -22,14 +22,15 @@ public class Server {
 			
 			//Start the server and let the user know what our inetAddress is.
 			ss = new ServerSocket(35050);
-			System.out.println("Server started on port 35050 at " + InetAddress.getLocalHost());
+			System.out.println("Server started on port 35050 at " + InetAddress.getLocalHost() + 
+					".  Press Ctrl+C to quit, and return to the command line.");
 			
 			//Set up the list we can add the threads to, and start the counter at 0
 			tcpServers = new ArrayList<TCPServer>();
 			int threadCount = 1;
 			
 			//Start the UDP Server in it's own thread
-			//so that we can continue starting up our
+			//so that we can continue starting up our 
 			//tcp server.
 			UDPServer udp = new UDPServer();
 			udp.start();

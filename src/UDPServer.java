@@ -38,8 +38,10 @@ public class UDPServer extends Thread {
 				s.receive(p);
 				
 				//Get and Display the data from the packet.
-				String msg = new String(p.getData());				
-				System.out.println("Received UDP Datagram: "+msg);
+				String msg = new String(p.getData());
+				msg = msg.trim(); // Get rid of the extra whitespace.
+				String inet = p.getAddress().toString();
+				System.out.println("Received UDP Datagram: \""+msg+"\" from Client UDP Address: "+inet);
 				
 			}
 		
